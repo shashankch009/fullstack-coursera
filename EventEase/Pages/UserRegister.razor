@@ -1,0 +1,77 @@
+@page "/register"
+@using System.ComponentModel.DataAnnotations
+@using System
+@using EventEase.Models
+@using EventEase.Services
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+
+<h3 class="text-center my-4">User Registration</h3>
+
+@if (isRegistered)
+{
+    <div class="alert alert-success text-center" role="alert">
+        Registration successful! Welcome, <strong>@registerDetails.FullName</strong>!
+        <button class="btn btn-primary mt-2" @onclick="VisitLogin">Login</button>
+    </div>
+}
+else
+{
+    <EditForm Model="@registerDetails" OnValidSubmit="HandleValidSubmit" class="container mt-4 d-flex justify-content-center">
+        <div class="w-100 p-4 border rounded shadow-sm" style="max-width: 50%; min-width: 300px;">
+            <DataAnnotationsValidator />
+
+            <div class="mb-3">
+                <label for="FullName" class="form-label">Full Name:</label>
+                <InputText id="FullName" @bind-Value="registerDetails.FullName" class="form-control" />
+                <ValidationMessage For="@(() => registerDetails.FullName)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email:</label>
+                <InputText id="Email" @bind-Value="registerDetails.Email" type="email" class="form-control" />
+                <ValidationMessage For="@(() => registerDetails.Email)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password:</label>
+                <InputText id="Password" @bind-Value="registerDetails.Password" type="password" class="form-control" />
+                <ValidationMessage For="@(() => registerDetails.Password)" class="text-danger" />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @errorMessage
+                </div>
+            }
+        </div>
+    </EditForm>
+}
+
+@code {
+    private RegisterModel registerDetails = new RegisterModel(); // Use RegisterModel
+    private string errorMessage = string.Empty;
+    private bool isRegistered = false;
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("Registration attempt with email: " + registerDetails.Email);
+        if (AuthService.Register(registerDetails))
+        {
+            errorMessage = null;
+            isRegistered = true;
+        }
+        else
+        {
+            errorMessage = "Registration failed. User already exists.";
+        }
+    }
+
+
+    private void VisitLogin()
+    {
+         NavigationManager.NavigateTo("/login");
+    }
+}

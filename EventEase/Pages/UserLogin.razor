@@ -1,0 +1,73 @@
+@page "/login"
+
+@using System
+@using EventEase.Models
+@using EventEase.Services
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
+
+<h3 class="text-center my-4">User Login</h3>
+@if (loggedInUser != null)
+{
+    <div class="alert alert-success text-center" role="alert">
+        Login successful! Welcome, <strong>@loggedInUser.FullName</strong>!
+    </div>
+}
+else
+{
+    <EditForm Model="@loginDetails" OnValidSubmit="HandleValidSubmit" class="container mt-4 d-flex justify-content-center">
+        <div class="w-100 p-4 border rounded shadow-sm" style="max-width: 50%; min-width: 300px;">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+
+            <div class="mb-3">
+                <label for="Email" class="form-label">Email:</label>
+                <InputText id="Email" @bind-Value="loginDetails.Email" type="email" class="form-control" />
+                <ValidationMessage For="@(() => loginDetails.Email)" class="text-danger" />
+            </div>
+
+            <div class="mb-3">
+                <label for="Password" class="form-label">Password:</label>
+                <InputText id="Password" @bind-Value="loginDetails.Password" type="password" class="form-control" />
+                <ValidationMessage For="@(() => loginDetails.Password)" class="text-danger" />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger mt-3" role="alert">
+                    @errorMessage
+                </div>
+            }
+        </div>
+    </EditForm>
+}
+
+@code {
+    private LoginModel loginDetails = new LoginModel(); // Use LoginModel
+    private User loggedInUser = null; 
+    private string errorMessage = string.Empty;
+    private string token;
+
+    private void HandleValidSubmit()
+    {
+        Console.WriteLine("Login attempt with email: " + loginDetails.Email);
+        try
+        {
+            token = AuthService.Login(loginDetails, out loggedInUser);
+            if (!string.IsNullOrEmpty(token))
+            {
+                errorMessage = string.Empty;
+                StateHasChanged(); // Ensure UI updates after state change
+            }
+            else
+            {
+                errorMessage = "Login failed: Invalid credentials.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "An error occurred during login: " + ex.Message;
+        }
+    }
+}
