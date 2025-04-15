@@ -1,0 +1,78 @@
+@page "/event/all"
+
+@using EventEase.Models
+@using EventEase.Services
+@inject EventService EventService
+@inject NavigationManager NavigationManager
+
+<h3 class="text-primary">All Events</h3>
+
+@if (events == null || !events.Any())
+{
+    <div class="alert alert-info mt-3">No events available. <a href="/create-event" class="alert-link">Create a new event</a>.</div>
+}
+else
+{
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var eventItem in events)
+                {
+                    <tr>
+                        <td>@eventItem.Id</td>
+                        <td>@eventItem.Name</td>
+                        <td>@eventItem.Date.ToString("MMMM dd, yyyy")</td>
+                        <td>@eventItem.Location</td>
+                        <td>
+                            <button class="btn btn-primary btn-sm" @onclick="() => NavigateToEvent(eventItem.Id)">View</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-secondary" @onclick="() => ChangePage(currentPage - 1)" disabled="@(currentPage == 1)">Previous</button>
+        <span>Page @currentPage of @((totalEvents + pageSize - 1) / pageSize)</span>
+        <button class="btn btn-secondary" @onclick="() => ChangePage(currentPage + 1)" disabled="@(currentPage * pageSize >= totalEvents)">Next</button>
+    </div>
+}
+
+@code {
+    private List<EventDetails> events;
+    private int currentPage = 1;
+    private int pageSize = 10;
+    private int totalEvents;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadEventsAsync();
+    }
+
+    private async Task LoadEventsAsync()
+    {
+        var allEvents = await EventService.GetAllEventsAsync(); // Assume this is an async method
+        totalEvents = allEvents.Count;
+        events = allEvents.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+    }
+
+    private async Task ChangePage(int page)
+    {
+        currentPage = page;
+        await LoadEventsAsync();
+    }
+
+    private void NavigateToEvent(int eventId)
+    {
+        NavigationManager.NavigateTo($"/event/{eventId}");
+    }
+}

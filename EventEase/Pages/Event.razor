@@ -1,0 +1,48 @@
+@page "/event/{eventId:int}"
+@using EventEase.Models
+@using EventEase.Services
+@inject EventService EventService
+
+<h3 class="text-primary">Event Details</h3>
+
+@if (eventDetails == null)
+{
+    <div class="alert alert-danger mt-3">Event not found or an error occurred.</div>
+}
+else
+{
+    <div class="card mt-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="card-title mb-0">@eventDetails.Name</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Date:</strong> @eventDetails.Date.ToString("MMMM dd, yyyy")</p>
+            <p><strong>Location:</strong> @eventDetails.Location</p>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int EventId { get; set; }
+
+    private EventDetails eventDetails;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            eventDetails = await EventService.GetEventByIdAsync(EventId);
+
+            if (eventDetails == null)
+            {
+                throw new Exception("Event not found.");
+            }
+        }
+        catch (Exception ex)
+        {
+            eventDetails = null;
+            // Optionally, log the error or display a user-friendly message
+        }
+    }
+}

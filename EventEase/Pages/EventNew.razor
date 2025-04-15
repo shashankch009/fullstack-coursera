@@ -1,0 +1,73 @@
+@page "/event/new"
+@using EventEase.Models
+@using EventEase.Services
+@inject EventService EventService
+@inject NavigationManager NavigationManager
+
+<h3 class="text-primary">Create New Event</h3>
+
+<EditForm Model="newEvent" OnValidSubmit="CreateEvent">
+    <DataAnnotationsValidator />
+
+    <div class="container mt-4">
+        <div class="mb-3">
+            <label for="eventName" class="form-label">Event Name</label>
+            <input type="text" id="eventName" class="form-control" @bind="newEvent.Name" placeholder="Enter event name" />
+            <ValidationMessage For="@(() => newEvent.Name)" class="text-danger" />
+        </div>
+        <div class="mb-3">
+            <label for="eventDate" class="form-label">Event Date</label>
+            <input type="date" id="eventDate" class="form-control" @bind="newEvent.Date" />
+            <ValidationMessage For="@(() => newEvent.Date)" class="text-danger" />
+        </div>
+        <div class="mb-3">
+            <label for="eventLocation" class="form-label">Event Location</label>
+            <input type="text" id="eventLocation" class="form-control" @bind="newEvent.Location" placeholder="Enter event location" />
+            <ValidationMessage For="@(() => newEvent.Location)" class="text-danger" />
+        </div>
+        <button class="btn btn-primary" type="submit">Create Event</button>
+
+        @if (successMessage != null)
+        {
+            <div class="alert alert-success mt-3">@successMessage</div>
+        }
+
+        @if (errorMessage != null)
+        {
+            <div class="alert alert-danger mt-3">@errorMessage</div>
+        }
+    </div>
+</EditForm>
+
+@code {
+    private EventDetails newEvent = new EventDetails
+    {
+        Date = DateTime.Today
+    };
+
+    private string successMessage;
+    private string errorMessage;
+
+    private void CreateEvent()
+    {
+        try
+        {
+            EventService.AddEvent(newEvent);
+
+            if (newEvent.Id != null && newEvent.Id > 0) // Ensure Id is valid
+            {
+                successMessage = "Event created successfully!";
+                NavigationManager.NavigateTo($"/event/{newEvent.Id}");
+            }
+            else
+            {
+                throw new Exception("Invalid event ID.");
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Failed to create event. Please try again.";
+            // Optionally, log the error
+        }
+    }
+}
