@@ -18,3 +18,10 @@ Content-Type: application/json
     "name" : "John Doe",
     "email" : "john@doe.com"
 }
+
+
+###
+GET {{host}}/file/a/b/c/abc.txt
+
+###
+GET {{host}}/file?id=123
