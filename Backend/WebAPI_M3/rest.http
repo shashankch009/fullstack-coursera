@@ -1,0 +1,21 @@
+@host = http://localhost:5089
+
+###
+
+GET {{host}}
+
+###
+GET {{host}}/manual-json
+
+
+###
+GET {{host}}/custom-json
+
+###
+GET {{host}}/json
+
+###
+GET {{host}}/auto
+
+###
+GET {{host}}/xml
