@@ -56,4 +56,16 @@ public static class SerializeToFile
         }
         Console.WriteLine("Binary serialization complete.");
     }
+
+    public static Person DeserializeFromBinary()
+    {
+        // Binary deserialization
+        using (FileStream fs = new FileStream("person.dat", FileMode.Open))
+        using (var binaryReader = new BinaryReader(fs))
+        {
+            string userName = binaryReader.ReadString();
+            int userAge = binaryReader.ReadInt32();
+            return new Person { UserName = userName, UserAge = userAge };
+        }
+    }
 }

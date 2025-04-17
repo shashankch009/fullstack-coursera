@@ -5,11 +5,11 @@
 GET {{host}}
 
 ###
-GET {{host}}/manual-json
+GET {{host}}/json-manual
 
 
 ###
-GET {{host}}/custom-json
+GET {{host}}/json-custom
 
 ###
 GET {{host}}/json
@@ -19,3 +19,49 @@ GET {{host}}/auto
 
 ###
 GET {{host}}/xml
+
+###
+POST {{host}}/auto
+Content-Type: application/json
+
+{
+  "UserName": "Shashank",
+  "UserAge": 30
+}
+
+###
+POST {{host}}/json
+Content-Type: application/json
+
+{
+  "UserName": "Shashank",
+  "UserAge": 30
+}
+
+###
+POST {{host}}/json-custom
+Content-Type: application/json
+
+{
+  "user_name": "Shashank",
+  "user_age": 30
+}
+
+###
+
+POST {{host}}/json-manual
+Content-Type: application/json
+
+{
+  "UserName": "Shashank",
+  "UserAge": 30
+}
+
+###
+POST {{host}}/xml
+Content-Type: application/xml
+
+<Person>
+  <UserName>Shashank</UserName>
+  <UserAge>30</UserAge>
+</Person>
