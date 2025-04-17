@@ -25,3 +25,33 @@ GET {{host}}/file/a/b/c/abc.txt
 
 ###
 GET {{host}}/file?id=123
+
+
+
+###
+
+GET {{host}}/product 
+
+###
+GET {{host}}/product/1
+
+###
+POST {{host}}/product 
+Content-Type: application/json
+
+{
+    "name" : "Product 1",
+    "description" : "Product 1 description",
+    "price" : 13.3
+}
+
+###
+PUT {{host}}/product/1
+Content-Type: application/json
+
+{
+    "id" : 1,
+    "name" : "Product 1",
+    "description" : "Product 1 description",
+    "price" : 12.5
+}

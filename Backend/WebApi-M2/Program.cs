@@ -5,6 +5,7 @@ builder.Services.AddControllers(); // Added to register controllers
 
 builder.Services.AddSingleton<WeatherService>(); // Register WeatherService as a singleton
 builder.Services.AddSingleton<UserService>(); 
+builder.Services.AddSingleton<ProductService>(); 
 
 var app = builder.Build();
 
