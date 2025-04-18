@@ -1,0 +1,5 @@
+@host = http://localhost:5238 
+###
+
+GET {{host}}
+## this will return 400 Bad request as ?secure=true is not set to simulate HTTPS
