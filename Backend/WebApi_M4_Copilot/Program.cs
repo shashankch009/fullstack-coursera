@@ -1,14 +1,19 @@
+using System.Collections.Concurrent;
+
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-var users = new Dictionary<int, User>();
+var users = new ConcurrentDictionary<int, User>();
 
 app.MapGet("/", () => "Hello World!");
 
 // Create
 app.MapPost("/users", (User user) => {
     user.Id = users.Count > 0 ? users.Keys.Max() + 1 : 1;
-    users[user.Id] = user;
+    if (!users.TryAdd(user.Id, user))
+    {
+        return Results.Conflict("Failed to add user.");
+    }
     return Results.Created($"/users/{user.Id}", user);
 });
 
@@ -24,15 +29,14 @@ app.MapGet("/users/{id}", (int id) => {
 app.MapPut("/users/{id}", (int id, User updatedUser) => {
     if (!users.ContainsKey(id)) return Results.NotFound();
 
-    var user = users[id];
-    user.FullName = updatedUser.FullName;
-    user.Age = updatedUser.Age;
+    updatedUser.Id = id; // Ensure the ID remains the same
+    users[id] = updatedUser;
     return Results.NoContent();
 });
 
 // Delete
 app.MapDelete("/users/{id}", (int id) => {
-    if (!users.Remove(id)) return Results.NotFound();
+    if (!users.TryRemove(id, out _)) return Results.NotFound();
 
     return Results.NoContent();
 });
