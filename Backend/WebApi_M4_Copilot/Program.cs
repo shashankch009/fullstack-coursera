@@ -9,6 +9,10 @@ app.MapGet("/", () => "Hello World!");
 
 // Create
 app.MapPost("/users", (User user) => {
+    if (string.IsNullOrWhiteSpace(user.FullName) || user.Age <= 0)
+    {
+        return Results.BadRequest("Invalid user data. FullName must not be empty and Age must be greater than 0.");
+    }
     user.Id = users.Count > 0 ? users.Keys.Max() + 1 : 1;
     if (!users.TryAdd(user.Id, user))
     {
@@ -27,6 +31,10 @@ app.MapGet("/users/{id}", (int id) => {
 
 // Update
 app.MapPut("/users/{id}", (int id, User updatedUser) => {
+    if (string.IsNullOrWhiteSpace(updatedUser.FullName) || updatedUser.Age <= 0)
+    {
+        return Results.BadRequest("Invalid user data. FullName must not be empty and Age must be greater than 0.");
+    }
     if (!users.ContainsKey(id)) return Results.NotFound();
 
     updatedUser.Id = id; // Ensure the ID remains the same
