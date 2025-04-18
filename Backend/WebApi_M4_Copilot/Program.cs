@@ -1,7 +1,10 @@
 using System.Collections.Concurrent;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpLogging();
+
 var app = builder.Build();
+app.UseHttpLogging();
 
 var users = new ConcurrentDictionary<int, User>();
 
