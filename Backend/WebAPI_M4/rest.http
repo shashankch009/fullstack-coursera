@@ -3,3 +3,26 @@
 
 GET {{host}}
 ## this will return 400 Bad request as ?secure=true is not set to simulate HTTPS
+
+
+###
+GET {{host}}?secure=true
+## this will return 403 Forbidden as ?authenticated=true is missing
+
+###
+GET {{host}}?secure=true&authenticated=true
+## this will return 200 OK as both query parameters are set
+
+###
+GET {{host}}/unauthorized?secure=true&authenticated=true
+##this will return 401 Unauthorized as the user is not authorized
+
+
+###
+GET {{host}}?secure=true&authenticated=true&input=123
+## this will return 200 OK as all query parameters are set and input is valid
+
+
+###
+GET {{host}}?secure=true&authenticated=true&input=123$
+## this will return 400 Bad request as input is invalid
