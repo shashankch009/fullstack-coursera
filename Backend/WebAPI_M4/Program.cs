@@ -1,4 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddEndpointsApiExplorer(); // Add support for API documentation
+builder.Services.AddSwaggerGen(); // Add Swagger for API documentation
+
 
 var app = builder.Build();
 
@@ -8,6 +11,11 @@ if(!app.Environment.IsDevelopment()) {
 }
 else {
     app.UseDeveloperExceptionPage(); // Use the developer exception page in development
+}
+
+if(app.Environment.IsDevelopment()) {
+    app.UseSwagger(); // Enable Swagger in development
+    app.UseSwaggerUI(); // Enable Swagger UI in development
 }
 
 app.Use(async (context, next) => {
