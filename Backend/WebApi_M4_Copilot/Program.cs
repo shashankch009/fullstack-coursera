@@ -1,31 +1,30 @@
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-var users = new List<User>();
+var users = new Dictionary<int, User>();
 
 app.MapGet("/", () => "Hello World!");
 
 // Create
 app.MapPost("/users", (User user) => {
-    user.Id = users.Count > 0 ? users.Max(u => u.Id) + 1 : 1;
-    users.Add(user);
+    user.Id = users.Count > 0 ? users.Keys.Max() + 1 : 1;
+    users[user.Id] = user;
     return Results.Created($"/users/{user.Id}", user);
 });
 
 // Read all
-app.MapGet("/users", () => users);
+app.MapGet("/users", () => users.Values);
 
 // Read by ID
 app.MapGet("/users/{id}", (int id) => {
-    var user = users.FirstOrDefault(u => u.Id == id);
-    return user is not null ? Results.Ok(user) : Results.NotFound();
+    return users.TryGetValue(id, out var user) ? Results.Ok(user) : Results.NotFound();
 });
 
 // Update
 app.MapPut("/users/{id}", (int id, User updatedUser) => {
-    var user = users.FirstOrDefault(u => u.Id == id);
-    if (user is null) return Results.NotFound();
+    if (!users.ContainsKey(id)) return Results.NotFound();
 
+    var user = users[id];
     user.FullName = updatedUser.FullName;
     user.Age = updatedUser.Age;
     return Results.NoContent();
@@ -33,10 +32,8 @@ app.MapPut("/users/{id}", (int id, User updatedUser) => {
 
 // Delete
 app.MapDelete("/users/{id}", (int id) => {
-    var user = users.FirstOrDefault(u => u.Id == id);
-    if (user is null) return Results.NotFound();
+    if (!users.Remove(id)) return Results.NotFound();
 
-    users.Remove(user);
     return Results.NoContent();
 });
 
