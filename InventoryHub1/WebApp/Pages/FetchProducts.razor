@@ -23,6 +23,7 @@ else
 }
 
 @code {
+    private static List<Product>? cachedProducts; 
     private List<Product>? products;
     private string? errorMessage;
 
@@ -30,7 +31,17 @@ else
     {
         try
         {
-            products = await Http.GetFromJsonAsync<List<Product>>("/api/products");
+            if (cachedProducts == null)
+            {
+                // Fetch from API if not already cached
+                Console.WriteLine("Fetching products from API...");
+                cachedProducts = await Http.GetFromJsonAsync<List<Product>>("/api/products");
+            }
+            else
+            {
+                Console.WriteLine("Using cached products...");
+            }
+            products = cachedProducts;
         }
         catch (HttpRequestException ex)
         {
