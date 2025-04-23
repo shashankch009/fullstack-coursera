@@ -1,0 +1,17 @@
+
+@host = http://localhost:5056
+
+##
+GET {{host}}
+
+###
+GET {{host}}/public 
+
+###
+GET {{host}}/user
+
+###
+GET {{host}}/user-it 
+###
+GET {{host}}/admin
+
