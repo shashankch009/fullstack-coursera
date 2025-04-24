@@ -15,3 +15,20 @@ GET {{host}}/account/user-it
 ###
 GET {{host}}/account/admin
 
+###
+POST {{host}}/account/register-test
+
+###
+POST {{host}}/account/roles
+
+###
+POST {{host}}/account/assign-admin-test
+
+###
+POST {{host}}/account/add-claim-test
+
+###
+POST {{host}}/account/login-test
+
+###
+COOKIE : .AspNetCore.Identity.Application=CfDJ8PZ4Ps5hcdJNmI0CiiUd3r6kRANSzZsXLsXilWUIOgIRZCtaPoncvKcYuS16PkVhSM4bZSzeEaLZul7RkuZ9Y6Fd4uQSrO3fgKkHqlQdgSBTkCpI31wnspLzI5HMlJ5ptk6d6s9FB1EDqHQp61cjmE4EHFx5-l8PwsN2ScTAxq_AKef7sH5IgubgZWbJIfS0JsBIcBxf_KAl_lRP79eePa3GtCxi7YsSVxBeL_NCSwQ6SyZ5KtoHCDbLEVKVS57unqZKZFhVXy0z559PCra7sEScXskIcn5uut2-BjOTE5YnvXYYWkV3sXM-bDuMpRLiUBu3SIQVWX77Ul7reR_bZZ4Db69A9q3XbU_wOQgQJfHXutRXLhO1atvAIfS8MgpCoa_1LYTQZ7DlIXREowPgITfaT37Pi30UjB3cMIqWtyZOuUAwOgBsRF1vg0CtMDh5pX_veeJucKE8SwPdBb_11r0gUjyVF-d25NB4ZiWBz2PAmaHPYOhB8M4wRmkWoZhJ_AqQAtOVR3fOsZqr09QvxRNAfIIeOeauSB6OdKkBwjXAFTkY_vGtEQY8svxGwkXDEHfkFpCEalM9gmv7UymUxxBASpV-KWPrS3oEd4gmzh9wsH23jPcg-BzeZmfMVyR2gNxoRMURgCRBr_82yHz9Eo71b_zBk7G2B_frmDuek834a9Lb-laSK3LPtDJlyFMjz39C-ca7ROfsnzzh8YqVl-uDVVeCCcVfvxJj97QRV7uuToumIccobCefyYlADmL2_NIBALI3_SIfIOk8umZ5fyhA7HIyCgfvlWvcdORCMLNkC2f9SRe9pETU7rXL3Fhp3KR898l_2VqppJ8_KqBzcN8; path=/; samesite=lax; httponly
