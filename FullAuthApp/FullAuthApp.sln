@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServer", "ApiServer\ApiServer.csproj", "{2018E064-C807-4164-8815-1A60FA1F11AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csproj", "{1A885315-0908-4513-8CBE-A3D1732BF48A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{2018E064-C807-4164-8815-1A60FA1F11AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2018E064-C807-4164-8815-1A60FA1F11AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2018E064-C807-4164-8815-1A60FA1F11AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A885315-0908-4513-8CBE-A3D1732BF48A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A885315-0908-4513-8CBE-A3D1732BF48A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A885315-0908-4513-8CBE-A3D1732BF48A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A885315-0908-4513-8CBE-A3D1732BF48A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
