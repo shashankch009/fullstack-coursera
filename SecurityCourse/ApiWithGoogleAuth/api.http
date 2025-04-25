@@ -1,0 +1,12 @@
+
+@host = http://localhost:5208
+
+
+###
+GET {{host}}
+
+###
+GET {{host}}/home 
+
+###
+POST {{host}}/logout 
