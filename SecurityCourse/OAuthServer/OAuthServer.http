@@ -1,6 +1,6 @@
-@OAuthServer_HostAddress = http://localhost:5246
+@host = http://localhost:5246
 
-GET {{OAuthServer_HostAddress}}/weatherforecast/
+GET {{host}}
 Accept: application/json
 
 ###
