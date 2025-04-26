@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiWithAuth", "ApiWithAuth\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiWithGoogleAuth", "ApiWithGoogleAuth\ApiWithGoogleAuth.csproj", "{0646C65F-CFD5-4FCF-8F5D-C2B4A54CD301}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuthServer", "OAuthServer\OAuthServer.csproj", "{5A659AD2-11C3-480D-BA15-C89B1215C8B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{0646C65F-CFD5-4FCF-8F5D-C2B4A54CD301}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0646C65F-CFD5-4FCF-8F5D-C2B4A54CD301}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0646C65F-CFD5-4FCF-8F5D-C2B4A54CD301}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A659AD2-11C3-480D-BA15-C89B1215C8B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A659AD2-11C3-480D-BA15-C89B1215C8B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A659AD2-11C3-480D-BA15-C89B1215C8B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A659AD2-11C3-480D-BA15-C89B1215C8B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
