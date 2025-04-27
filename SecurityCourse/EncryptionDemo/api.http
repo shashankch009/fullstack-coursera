@@ -1,0 +1,21 @@
+@root = http://localhost:5234
+
+###
+GET {{root}}
+
+###
+POST {{root}}/encrypt 
+Content-Type: application/json
+
+{
+    "PlainText" : "Some plain text"
+}
+
+###
+POST {{root}}/decrypt 
+Content-Type: application/json
+
+{
+    "CipherText" : "jjULg+h2Z0ok9mLvO7V6FA=="
+}
+
