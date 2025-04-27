@@ -1,0 +1,18 @@
+
+@base = http://localhost:5120
+
+###
+GET {{base}}
+
+###
+POST {{base}}/login 
+Content-Type: application/json
+
+{
+    "userName" : "testuser",
+    "password" : "password123"
+}
+
+###
+GET {{base}}/secure
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ0ZXN0dXNlciIsInJvbGUiOiJ1c2VyIiwianRpIjoiNzg1Y2I4YWEtYWE2OS00YzJlLWFiMWItYTI5ODlmZTEyMjlkIiwiZXhwIjoxNzQ1NzQ1NzIyLCJpc3MiOiJBcGlBdXRoSldUQXBwIiwiYXVkIjoiQXBpV2l0aEp3dEF1dGgifQ.OtRIdF3MQkJIxNQSzsiqyblydhUNcHoLmUt12xP0VEM
