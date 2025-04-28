@@ -1,0 +1,30 @@
+
+@root = http://localhost:5276
+@base = {{root}}/api
+
+###
+GET {{root}}
+
+###
+POST {{base}}/account/register
+Content-Type: application/json
+
+{
+    "fullName" : "Shashank",
+    "email" : "shashank@gmail.com",
+    "password" : "Test@123",
+    "role" : "User"
+}
+
+###
+POST {{base}}/account/login 
+Content-Type: application/json
+
+{
+    "userName" : "shashank@gmail.com",
+    "password" : "Test@123"
+}
+
+###
+POST {{base}}/account/logout
+
