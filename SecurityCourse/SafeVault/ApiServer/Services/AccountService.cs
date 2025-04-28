@@ -1,4 +1,5 @@
 
+using ApiServer.Data;
 using ApiServer.Models.Api;
 using Microsoft.AspNetCore.Identity;
 
@@ -11,12 +12,19 @@ public class AccountService  : IAccountService
     private readonly SignInManager<IdentityUser> signInManager;
     private readonly RoleManager<IdentityRole> roleManager;
 
-    public AccountService(IConfiguration configuration, UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, RoleManager<IdentityRole> roleManager)
+    private readonly AppIdentityDbContext dbContext;
+
+    public AccountService(IConfiguration configuration, 
+        UserManager<IdentityUser> userManager, 
+        SignInManager<IdentityUser> signInManager, 
+        RoleManager<IdentityRole> roleManager,
+        AppIdentityDbContext dbContext)
     {
         this.configuration = configuration;
         this.userManager = userManager;
         this.signInManager = signInManager;
         this.roleManager = roleManager;
+        this.dbContext = dbContext;
     }
 
     public async Task<IdentityResult> RegisterAsync(RegisterInfo registerInfo) 
@@ -80,6 +88,11 @@ public class AccountService  : IAccountService
         {
             return SignInResult.Failed;
         }
+    }
+
+    public bool VerifyUser(string username, string password)
+    {
+        return dbContext.VerifyUser(username, password);
     }
 
     public async Task LogoutAsync()

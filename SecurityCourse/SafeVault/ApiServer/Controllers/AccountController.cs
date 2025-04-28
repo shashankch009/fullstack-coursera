@@ -42,6 +42,16 @@ public class AccountController : ControllerBase
             return BadRequest("Invalid login information.");
         }
 
+        //only for testing direct DB access - directly via SQL query
+        if(accountService.VerifyUser(loginInfo.UserName, loginInfo.Password))
+        {
+            Console.WriteLine("User is verified");
+        }
+        else 
+        {
+            Console.WriteLine("User is NOT verified");
+        }
+
         var result = await accountService.LoginAsync(loginInfo);
         if (result.Succeeded)
         {

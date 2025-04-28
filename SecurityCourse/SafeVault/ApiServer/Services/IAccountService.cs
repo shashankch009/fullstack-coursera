@@ -11,4 +11,6 @@ public interface IAccountService
     Task<SignInResult> LoginAsync(LoginInfo loginInfo);
    
     Task LogoutAsync();
+
+    bool VerifyUser(string username, string password);
 }
