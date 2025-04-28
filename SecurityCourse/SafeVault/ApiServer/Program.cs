@@ -13,8 +13,7 @@ builder.Services.AddCors(options => {
 
 builder.Services.AddControllers();
 
-builder.Services.AddDbContext<AppIdentityDbContext>(options => 
-    options.UseInMemoryDatabase("AuthAppIdentity"));
+builder.Services.AddDbContext<AppIdentityDbContext>();
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppIdentityDbContext>();
