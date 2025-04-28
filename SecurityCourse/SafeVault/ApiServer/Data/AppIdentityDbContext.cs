@@ -27,10 +27,18 @@ public class AppIdentityDbContext : IdentityDbContext
 
     public bool VerifyUser(string username, string password)
     {
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+        {
+            return false;
+        }
+
+        // Sanitize input to prevent XSS
+        username = SanitizeInput(username);
+
         string query = "SELECT * FROM AspNetUsers WHERE UserName = @username";
 
         var user = this.Users.FromSqlRaw(query, new MySqlParameter("@USERNAME", username)).FirstOrDefault();
-
+        //can also use .FromSqlInterpolated() - considered even safer
         if (user == null || user.PasswordHash == null)
         {
             return false; // User not found
@@ -38,5 +46,17 @@ public class AppIdentityDbContext : IdentityDbContext
 
         var result = new PasswordHasher<IdentityUser>().VerifyHashedPassword(user, user.PasswordHash, password);
         return result == PasswordVerificationResult.Success;
+    }
+
+    // Helper method to sanitize input
+    private string SanitizeInput(string input)
+    {
+        // Replace potentially dangerous characters
+        return input.Replace("<", string.Empty)
+                    .Replace(">", string.Empty)
+                    .Replace("&", string.Empty)
+                    .Replace("'", string.Empty)
+                    .Replace("\"", string.Empty)
+                    .Trim();
     }
 }
