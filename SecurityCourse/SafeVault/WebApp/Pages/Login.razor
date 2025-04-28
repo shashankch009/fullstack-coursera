@@ -1,0 +1,60 @@
+@page "/login"
+@inject HttpClient http
+@inject NavigationManager nav 
+
+
+<div class="d-flex justify-content-center align-items-center h-100">
+    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+        <h3 class="text-center mb-4">Login</h3>
+        <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <InputText type="email" @bind-Value="loginModel.UserName" class="form-control" placeholder="Enter your email"/>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <InputText type="password" @bind-Value="loginModel.Password"  class="form-control" placeholder="Enter your password"/>
+            </div>
+            <div class="text-danger mb-3">@errorMessage</div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+
+    private LoginModel loginModel = new LoginModel();
+    private string? errorMessage = null;
+
+    private async Task HandleLogin()
+    {
+        try 
+        {
+            Console.WriteLine("Login button clicked");
+            var response = await http.PostAsJsonAsync("http://localhost:5276/api/account/login", loginModel);
+            if(response.IsSuccessStatusCode)
+            {
+                nav.NavigateTo("/");
+            }
+            else if(response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                errorMessage = "Invalid username or password";
+            }
+            else 
+            {
+                errorMessage = $"An error occurred with code : {response.StatusCode}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred : {ex.Message}";
+        }
+    }
+
+    public class LoginModel 
+    {
+        public string UserName {get;set;}
+        public string Password {get;set;}
+    }
+
+}
