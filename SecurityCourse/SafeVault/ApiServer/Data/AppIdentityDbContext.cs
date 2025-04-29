@@ -27,11 +27,17 @@ public class AppIdentityDbContext : IdentityDbContext
 
     public bool VerifyUser(string username, string password)
     {
-        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password))
+        string allowedSpecialCharacters = "!@#$%^&*?";
+        if (!ValidationHelper.IsValidInput(username) 
+            || !ValidationHelper.IsValidInput(password, allowedSpecialCharacters))
         {
             return false;
         }
 
+        if(!ValidationHelper.IsValidXSSInput(username)) 
+        {
+            return false;
+        }
         // Sanitize input to prevent XSS
         username = SanitizeInput(username);
 
