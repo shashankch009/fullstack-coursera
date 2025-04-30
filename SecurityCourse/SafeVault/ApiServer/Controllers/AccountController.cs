@@ -1,6 +1,7 @@
 
 using ApiServer.Models.Api;
 using ApiServer.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiServer.Controllers;
@@ -42,16 +43,6 @@ public class AccountController : ControllerBase
             return BadRequest("Invalid login information.");
         }
 
-        //only for testing direct DB access - directly via SQL query
-        if(accountService.VerifyUser(loginInfo.UserName, loginInfo.Password))
-        {
-            Console.WriteLine("User is verified");
-        }
-        else 
-        {
-            Console.WriteLine("User is NOT verified");
-        }
-
         var result = await accountService.LoginAsync(loginInfo);
         if (result.Succeeded)
         {
@@ -66,5 +57,13 @@ public class AccountController : ControllerBase
     {
         await accountService.LogoutAsync();
         return Ok("User logged out successfully.");
+    }
+
+    [HttpGet("all")]
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> GetAllUsers()
+    {
+        var users = await accountService.GetAllUsers();
+        return Ok(users);
     }
 }

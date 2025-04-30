@@ -13,4 +13,6 @@ public interface IAccountService
     Task LogoutAsync();
 
     bool VerifyUser(string username, string password);
+
+    Task<IList<UserInfo>> GetAllUsers();
 }

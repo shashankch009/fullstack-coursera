@@ -100,4 +100,22 @@ public class AccountService  : IAccountService
         await signInManager.SignOutAsync();
         Console.WriteLine("User logged out!");
     }
+
+    public async Task<IList<UserInfo>> GetAllUsers()
+    {
+        var users = userManager.Users.ToList();
+        var userInfoList = new List<UserInfo>();
+
+        foreach (var user in users)
+        {
+            userInfoList.Add(new UserInfo
+            {
+                UserName = user.UserName ?? "",
+                Email = user.Email ?? "", 
+                Roles = await userManager.GetRolesAsync(user) ?? new List<string>()
+            });
+        }
+
+        return userInfoList;
+    }
 }

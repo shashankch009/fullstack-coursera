@@ -17,6 +17,17 @@ Content-Type: application/json
 }
 
 ###
+POST {{base}}/account/register
+Content-Type: application/json
+
+{
+    "fullName" : "Shashank Admin",
+    "email" : "shashank-admin@gmail.com",
+    "password" : "Test@123",
+    "role" : "Admin"
+}
+
+###
 POST {{base}}/account/login 
 Content-Type: application/json
 
@@ -27,4 +38,7 @@ Content-Type: application/json
 
 ###
 POST {{base}}/account/logout
+
+###
+GET {{base}}/account/all
 
