@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InMemoryCaching", "InMemoryCaching\InMemoryCaching.csproj", "{AED11910-5630-4F08-8277-857551CC9D01}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiWithRedis", "ApiWithRedis\ApiWithRedis.csproj", "{9972E978-2D62-447C-8401-9D466145BFA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{AED11910-5630-4F08-8277-857551CC9D01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AED11910-5630-4F08-8277-857551CC9D01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AED11910-5630-4F08-8277-857551CC9D01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9972E978-2D62-447C-8401-9D466145BFA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9972E978-2D62-447C-8401-9D466145BFA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9972E978-2D62-447C-8401-9D466145BFA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9972E978-2D62-447C-8401-9D466145BFA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

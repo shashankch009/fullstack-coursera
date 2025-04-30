@@ -1,0 +1,22 @@
+
+@root = http://localhost:5073
+
+###
+GET {{root}}
+
+###
+POST {{root}}/store
+Content-Type: application/json
+
+{
+
+}
+
+###
+GET {{root}}/retrieve
+
+###
+DELETE {{root}}/remove 
+
+###
+GET {{root}}/monitor 
