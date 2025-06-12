@@ -1,8 +1,13 @@
+using LogiTrack.DB;
+using LogiTrack.Models.DB;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+
+builder.Services.AddDbContext<LogiTrackContext>();
 
 var app = builder.Build();
 
@@ -14,28 +19,32 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+app.MapGet("/hello", () =>
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    return "Hello there!";
+});
 
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/test", (LogiTrackContext dbContext) =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+    // Add test inventory item if none exist
+    if (!dbContext.InventoryItems.Any())
+    {
+        dbContext.InventoryItems.Add(new InventoryItem
+        {
+            Name = "Pallet Jack",
+            Quantity = 12,
+            Location = "Warehouse A"
+        });
+
+        dbContext.SaveChanges();
+    }
+
+    // Retrieve and print inventory to confirm
+    var items = dbContext.InventoryItems.ToList();
+    foreach (var item in items)
+    {
+        item.DisplayInfo(); // Should print: Item: Pallet Jack | Quantity: 12 | Location: Warehouse A
+    }
+});
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
