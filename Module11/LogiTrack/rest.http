@@ -1,0 +1,44 @@
+@host = http://localhost:5046
+@api = {{host}}/api
+
+GET {{host}}/hello
+
+### 
+GET {{api}}/inventory/all
+
+
+### 
+GET {{api}}/inventory/3
+
+###
+POST {{api}}/inventory
+Content-Type: application/json
+
+{
+  "name": "Notebook",
+  "quantity" : 100,
+  "location" : "Meerut Warehouse"
+}
+
+###
+DELETE {{api}}/inventory/3
+
+###
+GET {{api}}/orders/all
+
+###
+GET {{api}}/orders/1
+
+###
+POST {{api}}/orders
+Content-Type: application/json
+
+{
+    "customerId": 1,
+    "inventoryItemIds": [1, 4]
+}
+
+###
+DELETE {{api}}/orders/1
+
+###

@@ -19,8 +19,6 @@ public class InventoryItem
     [Required]
     public string Location { get; set; }
 
-    public void DisplayInfo()
-    {
-        Console.WriteLine($"Item: {Name} | Quantity: {Quantity} | Location: {Location}");
-    }
+    // Navigation property for many-to-many relationship
+    public List<OrderInventoryItem> OrderInventoryItems { get; set; }
 }
