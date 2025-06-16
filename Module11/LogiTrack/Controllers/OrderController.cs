@@ -1,10 +1,12 @@
 
 using LogiTrack.Models.Api;
 using LogiTrack.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
 [Route("api/[controller]s")]
+[Authorize]
 public class OrderController : ControllerBase
 {
     private IOrderService orderService;

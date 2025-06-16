@@ -41,4 +41,39 @@ Content-Type: application/json
 ###
 DELETE {{api}}/orders/1
 
+
+
 ###
+POST {{api}}/auth/register
+Content-Type: application/json
+
+{
+    "fullName" : "Shashank User",
+    "email" : "shashank.user@gmail.com",
+    "password" : "Test@123",
+    "role" : "User"
+}
+
+###
+POST {{api}}/auth/register
+Content-Type: application/json
+
+{
+    "fullName" : "Shashank Admin",
+    "email" : "shashank.admin@gmail.com",
+    "password" : "Test@123",
+    "role" : "Admin"
+}
+
+###
+POST {{api}}/auth/login 
+Content-Type: application/json
+
+{
+    "userName" : "shashank.admin@gmail.com",
+    "password" : "Test@123"
+}
+
+###
+POST {{api}}/auth/logout
+

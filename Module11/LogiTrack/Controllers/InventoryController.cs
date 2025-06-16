@@ -1,11 +1,13 @@
 using LogiTrack.Models.Api;
 using Microsoft.AspNetCore.Mvc;
 using LogiTrack.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LogiTrack.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize(Policy = "AdminOnly")]
 public class InventoryController : ControllerBase
 {
     private IInventoryService inventoryService;
