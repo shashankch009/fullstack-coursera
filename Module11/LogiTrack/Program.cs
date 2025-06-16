@@ -27,6 +27,9 @@ builder.Services.AddAuthentication();
 builder.Services.AddAuthorizationBuilder()
     .AddPolicy("AdminOnly", policy => policy.RequireRole(UserRole.Admin));
 
+
+builder.Services.AddMemoryCache();
+
 var app = builder.Build();
 
 
